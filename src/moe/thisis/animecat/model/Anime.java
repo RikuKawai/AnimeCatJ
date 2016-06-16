@@ -5,7 +5,7 @@ import javafx.beans.property.*;
 public class Anime {
 	private final StringProperty animeTitle;
 	private final StringProperty animeID;
-	private final IntegerProperty metaEpisodes;
+	private final StringProperty metaEpisodes;
 	private final StringProperty metaYear;
 	private final StringProperty metaStatus;
 	private final StringProperty metaRating;
@@ -18,11 +18,11 @@ public class Anime {
 	public Anime(String animeTitle, String animeID) {
 		this.animeTitle = new SimpleStringProperty(animeTitle);
 		this.animeID = new SimpleStringProperty(animeID);
-		this.metaEpisodes = new SimpleIntegerProperty(24);
+		this.metaEpisodes = new SimpleStringProperty("24");
 		this.metaYear = new SimpleStringProperty("2013-10-04");
 		this.metaStatus = new SimpleStringProperty("Finished Airing");
 		this.metaRating = new SimpleStringProperty("8.24");
-		this.imageURL = new SimpleStringProperty("");
+		this.imageURL = new SimpleStringProperty("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
 	}
 	public String getAnimeTitle() {
 		return animeTitle.get();
@@ -33,13 +33,13 @@ public class Anime {
 	public StringProperty animeTitleProperty() {
 		return animeTitle;
 	}
-	public int getMetaEpisodes() {
+	public String getMetaEpisodes() {
 		return metaEpisodes.get();
 	}
-	public void setMetaEpisodes(int metaEpisodes) {
+	public void setMetaEpisodes(String metaEpisodes) {
 		this.metaEpisodes.set(metaEpisodes);
 	}
-	public IntegerProperty metaEpisodesProperty() {
+	public StringProperty metaEpisodesProperty() {
 		return metaEpisodes;
 	}
 	public String getMetaYear() {
@@ -77,5 +77,14 @@ public class Anime {
 	}
 	public StringProperty animeIDProperty() {
 		return animeID;
+	}
+	public String getImageURL() {
+		return imageURL.get();
+	}
+	public void setImageURL(String imageURL) {
+		this.imageURL.set(imageURL);
+	}
+	public StringProperty imageURLProperty() {
+		return imageURL;
 	}
 }

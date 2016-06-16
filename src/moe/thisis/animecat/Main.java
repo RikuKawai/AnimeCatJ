@@ -1,12 +1,17 @@
 package moe.thisis.animecat;
 	
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import moe.thisis.animecat.model.Anime;
+import moe.thisis.animecat.view.EditController;
 import moe.thisis.animecat.view.UIController;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 
@@ -25,10 +30,13 @@ public class Main extends Application {
 	}
 	
 	private Pane animeCatLayout;
+	private Stage primaryStage;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			this.primaryStage = primaryStage;
+			this.primaryStage.setTitle("AnimeCat");
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/animecat.fxml"));
 			animeCatLayout = (Pane) loader.load();
@@ -42,6 +50,36 @@ public class Main extends Application {
 			controller.setMain(this);
 		} catch(Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public Stage getPrimaryStage() {
+		return primaryStage;
+	}
+	
+	public boolean showAnimeDialog(Anime anime) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/EditController.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Add Anime");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			
+			EditController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setAnime(anime);
+			
+			dialogStage.showAndWait();
+			
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 	

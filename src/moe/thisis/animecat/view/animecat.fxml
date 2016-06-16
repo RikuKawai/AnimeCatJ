@@ -18,7 +18,7 @@
             <TableColumn fx:id="animeIDColumn" prefWidth="78.0" text="ID" />
         </columns>
       </TableView>
-      <ImageView fx:id="metaCover" fitHeight="321.0" fitWidth="225.0" layoutX="372.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="metaCover" fitHeight="321.0" fitWidth="0.0" layoutX="372.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="http://cdn.myanimelist.net/images/anime/9/9453.jpg" />
          </image></ImageView>
