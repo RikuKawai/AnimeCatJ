@@ -8,10 +8,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="96.0" prefWidth="431.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.thisis.animecat.view.EditController">
    <children>
-      <GridPane layoutX="14.0" layoutY="14.0" prefHeight="34.0" prefWidth="403.0">
+      <GridPane layoutX="7.0" layoutY="14.0" prefHeight="48.0" prefWidth="418.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="76.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="424.0" minWidth="10.0" prefWidth="327.0" />
@@ -21,10 +20,10 @@
         </rowConstraints>
          <children>
             <Label text="Anime Title" />
-            <TextField fx:id="searchQuery" prefHeight="26.0" prefWidth="315.0" GridPane.columnIndex="1" />
+            <TextField fx:id="searchQuery" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
          </children>
       </GridPane>
       <Button layoutX="355.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="13.0" />
-      <Button layoutX="285.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="26.0" prefWidth="63.0" text="OK" AnchorPane.bottomAnchor="14.0" />
+      <Button layoutX="285.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="26.0" prefWidth="63.0" text="OK" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="83.0" />
    </children>
 </AnchorPane>
