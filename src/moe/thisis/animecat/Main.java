@@ -20,9 +20,9 @@ public class Main extends Application {
 	private ObservableList<Anime> animeData = FXCollections.observableArrayList();
 	
 	public Main() {
-		animeData.add(new Anime("KILL la KILL", "18679"));
-		animeData.add(new Anime("Toradora!", "4224"));
-		animeData.add(new Anime("Death Note", "1535"));
+		//animeData.add(new Anime("KILL la KILL", "18679"));
+		//animeData.add(new Anime("Toradora!", "4224"));
+		//animeData.add(new Anime("Death Note", "1535"));
 	}
 	
 	public ObservableList<Anime> getAnimeData() {

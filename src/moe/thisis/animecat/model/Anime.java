@@ -63,7 +63,7 @@ public class Anime {
 	public String getMetaRating() {
 		return metaRating.get();
 	}
-	public void setMetaRatin(String metaRating) {
+	public void setMetaRating(String metaRating) {
 		this.metaRating.set(metaRating);
 	}
 	public StringProperty metaRatingProperty() {

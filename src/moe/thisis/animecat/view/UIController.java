@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.Label;
-
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javafx.scene.control.TableView;
@@ -114,13 +114,14 @@ public class UIController {
 			metaYearLabel.setText(anime.getMetaYear());
 			metaStatusLabel.setText(anime.getMetaStatus());
 			metaRatingLabel.setText(anime.getMetaRating());
-			//metaCover.setImage(anime.getImageURL());
+			metaCover.setImage(new Image(anime.getImageURL()));
 		} else {
 			animeTitleLabel.setText("");
 			metaEpisodesLabel.setText("");
 			metaYearLabel.setText("");
 			metaStatusLabel.setText("");
 			metaRatingLabel.setText("");
+			metaCover.setImage(new Image("http://i.imgur.com/jmpe90k.jpg"));
 		}
 	}
 }
