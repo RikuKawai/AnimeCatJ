@@ -182,7 +182,12 @@ public class EditController {
 			}
 			
 			if (animeData[1].length() > 33) { //some Anime have excessively long titles that do not fit in the GUI
-				animeData[1] = shortTitle; //use short title instead if the title is longer than 33 characters
+				if (shortTitle.length() > 0) {
+					animeData[1] = shortTitle; //use short title instead if the title is longer than 33 characters
+				} else {
+					animeData[1] = jpTitle; //use original title if there is no short title available
+				}
+				
 			}
 			animeData[2] = getNodeValue("episodes", nodes); //metaEpisodes
 			animeData[3] = getNodeValue("score", nodes); //metaRating
