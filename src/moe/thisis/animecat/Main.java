@@ -20,6 +20,7 @@ import moe.thisis.animecat.view.UIController;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -53,11 +54,12 @@ public class Main extends Application {
 		try {
 			this.primaryStage = primaryStage;
 			this.primaryStage.setTitle("AnimeCat"); //set application title
-			this.primaryStage.getIcons().add(new Image("resources/images/animecatB.ico")); //load and set icon
+			this.primaryStage.setResizable(false);
+			this.primaryStage.getIcons().add(new Image("file:resources/images/appIcon.png")); //load and set icon
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/animecat.fxml")); //load fxml
 			animeCatLayout = (Pane) loader.load();
-			Scene scene = new Scene(animeCatLayout,840,480); //create scene
+			Scene scene = new Scene(animeCatLayout,830,470); //create scene
 
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -90,6 +92,8 @@ public class Main extends Application {
 			
 			Stage dialogStage = new Stage(); //create new stage
 			dialogStage.setTitle("Add Anime"); //set dialog title
+			dialogStage.setResizable(false);
+			dialogStage.getIcons().add(new Image("file:resources/images/appIcon.png")); //load and set icon
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			Scene scene = new Scene(page);
@@ -161,6 +165,11 @@ public class Main extends Application {
 			alert.setHeaderText("Could not load data");
 			alert.setContentText("Could not load file:\n" + file.getPath());
 			
+			DialogPane dialogPane = alert.getDialogPane();
+			dialogPane.getStylesheets().add(
+			   getClass().getResource("view/animecat.css").toExternalForm());
+			dialogPane.getStyleClass().add("animecat");
+			
 			alert.showAndWait();
 		}
 	}
@@ -186,6 +195,11 @@ public class Main extends Application {
 			alert.setTitle("Error");
 			alert.setHeaderText("Could not save data");
 			alert.setContentText("Could not save file:\n" + file.getPath());
+			
+			DialogPane dialogPane = alert.getDialogPane();
+			dialogPane.getStylesheets().add(
+			   getClass().getResource("view/animecat.css").toExternalForm());
+			dialogPane.getStyleClass().add("animecat");
 			
 			alert.showAndWait();
 		}
