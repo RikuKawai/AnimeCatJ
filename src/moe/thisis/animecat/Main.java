@@ -25,14 +25,22 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 
-
+/**
+ * Main.java
+ * AnimeCat main class
+ * @author	Quinlan McNellen
+ * @date	2016/06/17
+ */
 public class Main extends Application {
 	private ObservableList<Anime> animeData = FXCollections.observableArrayList();
 	
 	public Main() {
 		
 	}
-	
+	/**
+	 * Observable list for Anime data
+	 * @return
+	 */
 	public ObservableList<Anime> getAnimeData() {
 		return animeData;
 	}
@@ -44,48 +52,52 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			this.primaryStage = primaryStage;
-			this.primaryStage.setTitle("AnimeCat");
-			this.primaryStage.getIcons().add(new Image("resources/images/animecatB.ico"));
+			this.primaryStage.setTitle("AnimeCat"); //set application title
+			this.primaryStage.getIcons().add(new Image("resources/images/animecatB.ico")); //load and set icon
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/animecat.fxml"));
+			loader.setLocation(Main.class.getResource("view/animecat.fxml")); //load fxml
 			animeCatLayout = (Pane) loader.load();
-			Scene scene = new Scene(animeCatLayout,840,480);
+			Scene scene = new Scene(animeCatLayout,840,480); //create scene
 
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
-			UIController controller = loader.getController();
+			UIController controller = loader.getController(); //load controller class
 			controller.setMain(this);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		File file = getAnimeFilePath();
+		File file = getAnimeFilePath(); //get previous file path
 		if (file != null) {
-			loadAnimeDataFromFile(file);
+			loadAnimeDataFromFile(file); //load previous file if one exists
 		}
 	}
 	
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
-	
+	/**
+	 * Show the dialog to add a new Anime to the list
+	 * @param	anime	Anime to add
+	 * @return
+	 */
 	public boolean showAnimeDialog(Anime anime) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/EditController.fxml"));
+			loader.setLocation(Main.class.getResource("view/EditController.fxml")); //load fxml
 			AnchorPane page = (AnchorPane) loader.load();
 			
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Add Anime");
+			Stage dialogStage = new Stage(); //create new stage
+			dialogStage.setTitle("Add Anime"); //set dialog title
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 			
-			EditController controller = loader.getController();
+			EditController controller = loader.getController(); //load controller class
 			controller.setDialogStage(dialogStage);
-			controller.setAnime(anime);
+			controller.setAnime(anime); //set anime to add
 			
 			dialogStage.showAndWait();
 			
@@ -100,7 +112,10 @@ public class Main extends Application {
 		launch(args);
 		
 	}
-	
+	/**
+	 * Return previous file path from preferences if available
+	 * @return
+	 */
 	public File getAnimeFilePath() {
 		Preferences prefs = Preferences.userNodeForPackage(Main.class);
 		String filePath = prefs.get("filePath", null);
@@ -110,16 +125,24 @@ public class Main extends Application {
 			return null;
 		}
 	}
+	/**
+	 * Store last saved file path in preferences
+	 * @param	file	File to store path for
+	 */
 	public void setAnimeFilePath(File file) {
 		Preferences prefs = Preferences.userNodeForPackage(Main.class);
 		if (file != null) {
 			prefs.put("filePath", file.getPath());
-			primaryStage.setTitle("AnimeCat - " + file.getName());
+			primaryStage.setTitle("AnimeCat - " + file.getName()); //append current file to application title
 		} else {
 			prefs.remove("filePath");
-			primaryStage.setTitle("AnimeCat");
+			primaryStage.setTitle("AnimeCat"); //set title back to normal
 		}
 	}
+	/**
+	 * Load Anime data from a file
+	 * @param	file	File to load
+	 */
 	public void loadAnimeDataFromFile(File file) {
 		try {
 			JAXBContext context = JAXBContext
@@ -128,10 +151,10 @@ public class Main extends Application {
 			
 			AnimeListWrapper wrapper = (AnimeListWrapper) um.unmarshal(file);
 			
-			animeData.clear();
-			animeData.addAll(wrapper.getAnimeList());
+			animeData.clear(); //clear any existing data
+			animeData.addAll(wrapper.getAnimeList()); //unwrap from XML and add all data from file
 			
-			setAnimeFilePath(file);
+			setAnimeFilePath(file); //set current file path
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
@@ -141,6 +164,10 @@ public class Main extends Application {
 			alert.showAndWait();
 		}
 	}
+	/**
+	 * Save Anime data to a file
+	 * @param	file	File to save
+	 */
 	public void saveAnimeDataToFile(File file) {
 		try {
 			JAXBContext context = JAXBContext
@@ -149,11 +176,11 @@ public class Main extends Application {
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
 			AnimeListWrapper wrapper = new AnimeListWrapper();
-			wrapper.setAnimeList(animeData);
+			wrapper.setAnimeList(animeData); //wrap data for XML storage
 			
 			m.marshal(wrapper, file);
 			
-			setAnimeFilePath(file);
+			setAnimeFilePath(file); //set current file path
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
