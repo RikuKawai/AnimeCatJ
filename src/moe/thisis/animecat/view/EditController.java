@@ -82,10 +82,7 @@ public class EditController {
 				
 				okClicked = true;
 				dialogStage.close(); //close dialog
-			} else { //data is not valid
-				searchQuery.setText(""); //clear search box
 			}
-			
 		}
 	}
 	/**
@@ -140,12 +137,12 @@ public class EditController {
 		boolean valid = true; //assume URL is valid
 		try { //try to send API request and parse response
 			parser.parse(new InputSource(url.openStream())); 
-		} catch (Exception e) { //catch invalid URL exception
+		} catch (Exception e) { //catch invalid URL exception or connection error
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.initOwner(dialogStage);
-			alert.setTitle("No Results");
-			alert.setHeaderText("No Search Results");
-			alert.setContentText("No results, please try a different query");
+			alert.setTitle("Search Failed");
+			alert.setHeaderText("Anime Searching Failed");
+			alert.setContentText("Try a different query or check your connection.");
 			
 			alert.showAndWait(); //display error dialog
 			valid = false; //set URL to invalid
