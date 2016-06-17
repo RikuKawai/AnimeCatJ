@@ -10,35 +10,35 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="840.0" style="-fx-background-color: #1d1d1d;" stylesheets="@animecat.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.thisis.animecat.view.UIController">
+<Pane maxHeight="480.0" maxWidth="840.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="840.0" styleClass="background" stylesheets="@animecat.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.thisis.animecat.view.UIController">
    <children>
-      <TableView fx:id="animeTable" prefHeight="480.0" prefWidth="346.0">
+      <TableView fx:id="animeTable" prefHeight="480.0" prefWidth="350.0">
         <columns>
-          <TableColumn fx:id="animeTitleColumn" prefWidth="268.0" text="Title" />
-            <TableColumn fx:id="animeIDColumn" prefWidth="78.0" text="ID" />
+          <TableColumn fx:id="animeTitleColumn" prefWidth="270.0" text="Title" />
+            <TableColumn fx:id="animeIDColumn" prefWidth="76.0" text="ID" />
         </columns>
       </TableView>
-      <ImageView fx:id="metaCover" fitHeight="321.0" fitWidth="0.0" layoutX="372.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="metaCover" fitHeight="320.0" fitWidth="0.0" layoutX="362.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="http://i.imgur.com/jmpe90k.jpg" />
+            <Image url="http://i.imgur.com/PPyqZdP.png" />
          </image></ImageView>
       <Separator layoutX="347.0" orientation="VERTICAL" prefHeight="480.0" prefWidth="6.0" />
-      <Label id="title_label" fx:id="animeTitleLabel" layoutX="364.0" layoutY="10.0" text="Anime Title" textAlignment="CENTER" />
+      <Label fx:id="animeTitleLabel" layoutX="362.0" layoutY="10.0" styleClass="label-title" text="Anime Title" textAlignment="CENTER" />
       <Separator layoutX="696.0" orientation="VERTICAL" prefHeight="480.0" prefWidth="6.0" />
-      <Label layoutX="373.0" layoutY="393.0" text="Originally Aired:" />
-      <Label fx:id="metaEpisodesLabel" layoutX="463.0" layoutY="372.0" text="--" />
-      <Label fx:id="metaYearLabel" layoutX="463.0" layoutY="394.0" text="----" />
-      <Label layoutX="423.0" layoutY="414.0" text="Status:" />
-      <Label layoutX="378.0" layoutY="372.0" text="Episode Count:" />
-      <Label fx:id="metaStatusLabel" layoutX="463.0" layoutY="414.0" text="--------" />
-      <Label layoutX="422.0" layoutY="435.0" text="Rating:" />
-      <Label fx:id="metaRatingLabel" layoutX="464.0" layoutY="436.0" text="----" />
-      <Button fx:id="controlAdd" layoutX="702.0" layoutY="19.0" mnemonicParsing="false" onAction="#entryAdd" prefHeight="26.0" prefWidth="135.0" text="Add Anime" />
+      <Label layoutX="361.0" layoutY="393.0" text="Originally Aired:" />
+      <Label fx:id="metaEpisodesLabel" layoutX="478.0" layoutY="372.0" styleClass="label-bright" text="--" />
+      <Label fx:id="metaYearLabel" layoutX="478.0" layoutY="394.0" styleClass="label-bright" text="--" />
+      <Label layoutX="361.0" layoutY="414.0" text="Status:" />
+      <Label layoutX="361.0" layoutY="372.0" text="Episode Count:" />
+      <Label fx:id="metaStatusLabel" layoutX="478.0" layoutY="414.0" styleClass="label-bright" text="--" />
+      <Label layoutX="361.0" layoutY="435.0" text="Rating:" />
+      <Label fx:id="metaRatingLabel" layoutX="478.0" layoutY="436.0" styleClass="label-bright" text="--" />
+      <Button fx:id="controlAdd" layoutX="702.0" layoutY="21.0" mnemonicParsing="false" onAction="#entryAdd" prefHeight="26.0" prefWidth="135.0" text="Add" />
       <Button fx:id="controlSave" layoutX="702.0" layoutY="409.0" mnemonicParsing="false" onAction="#listSave" prefHeight="26.0" prefWidth="135.0" text="Save" />
       <Button fx:id="controlLoad" layoutX="702.0" layoutY="374.0" mnemonicParsing="false" onAction="#listLoad" prefHeight="26.0" prefWidth="135.0" text="Open..." />
       <Separator layoutX="697.0" layoutY="313.0" prefHeight="6.0" prefWidth="144.0" />
-      <Button fx:id="controlRemove" layoutX="702.0" layoutY="54.0" mnemonicParsing="false" onAction="#entryRemove" prefHeight="26.0" prefWidth="135.0" text="Remove Anime" />
-      <Separator layoutX="697.0" layoutY="88.0" prefHeight="6.0" prefWidth="144.0" />
+      <Button fx:id="controlRemove" layoutX="702.0" layoutY="56.0" mnemonicParsing="false" onAction="#entryRemove" prefHeight="26.0" prefWidth="135.0" text="Remove" />
+      <Separator layoutX="697.0" layoutY="90.0" prefHeight="6.0" prefWidth="144.0" />
       <Button fx:id="controlNew" layoutX="702.0" layoutY="339.0" mnemonicParsing="false" onAction="#listNew" prefHeight="26.0" prefWidth="135.0" text="New" />
       <Button fx:id="controlSaveAs" layoutX="702.0" layoutY="444.0" mnemonicParsing="false" onAction="#listSaveAs" prefHeight="26.0" prefWidth="135.0" text="Save As..." />
       <Label layoutX="702.0" layoutY="319.0" text="File">
@@ -46,13 +46,13 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="702.0" text="Anime">
+      <Label layoutX="702.0" layoutY="1.0" text="Anime">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
       <Button fx:id="controlAbout" layoutX="702.0" layoutY="279.0" mnemonicParsing="false" onAction="#showAbout" prefHeight="26.0" prefWidth="135.0" text="About" />
-      <ImageView fitHeight="203.0" fitWidth="135.0" layoutX="717.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="220.0" fitWidth="121.0" layoutX="716.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../resources/images/aboutImage.png" />
          </image>
