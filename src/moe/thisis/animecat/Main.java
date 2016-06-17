@@ -59,7 +59,7 @@ public class Main extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/animecat.fxml")); //load fxml
 			animeCatLayout = (Pane) loader.load();
-			Scene scene = new Scene(animeCatLayout,830,470); //create scene
+			Scene scene = new Scene(animeCatLayout,840,480); //create scene
 
 			primaryStage.setScene(scene);
 			primaryStage.show();
