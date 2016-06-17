@@ -6,7 +6,7 @@ import java.net.URL;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
-
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -70,6 +70,11 @@ public class UIController {
 		alert.setTitle("AnimeCat");
 		alert.setHeaderText("About");
 		alert.setContentText("Author: Quinlan McNellen\nWebsite: http://thisis.moe");
+		
+		DialogPane dialogPane = alert.getDialogPane();
+		dialogPane.getStylesheets().add(
+		   getClass().getResource("animecat.css").toExternalForm());
+		dialogPane.getStyleClass().add("animecat");
 		
 		alert.showAndWait();
 	}
@@ -156,6 +161,11 @@ public class UIController {
 			alert.setHeaderText("No Anime Selected");
 			alert.setContentText("Please select an anime from the list first.");
 			
+			DialogPane dialogPane = alert.getDialogPane();
+			dialogPane.getStylesheets().add(
+			   getClass().getResource("animecat.css").toExternalForm());
+			dialogPane.getStyleClass().add("animecat");
+			
 			alert.showAndWait();
 		}
 		
@@ -194,6 +204,11 @@ public class UIController {
 			alert.setHeaderText("Connection Failed");
 			alert.setContentText("Please check your Internet connection");
 			
+			DialogPane dialogPane = alert.getDialogPane();
+			dialogPane.getStylesheets().add(
+			   getClass().getResource("animecat.css").toExternalForm());
+			dialogPane.getStyleClass().add("animecat");
+			
 			alert.showAndWait();
 			System.exit(0); //closes the application, as it cannot function properly offline
 		}
@@ -222,7 +237,7 @@ public class UIController {
 			metaYearLabel.setText("");
 			metaStatusLabel.setText("");
 			metaRatingLabel.setText("");
-			metaCover.setImage(new Image("http://i.imgur.com/jmpe90k.jpg")); //filler image so that the imageview is never empty			
+			metaCover.setImage(new Image("http://i.imgur.com/PPyqZdP.png")); //filler image so that the imageview is never empty			
 		}
 	}
 }

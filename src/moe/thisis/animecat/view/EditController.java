@@ -17,6 +17,7 @@ import com.sun.org.apache.xerces.internal.parsers.*;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -112,6 +113,11 @@ public class EditController {
 			alert.setHeaderText("Please correct input field");
 			alert.setContentText(errorMessage);
 			
+			DialogPane dialogPane = alert.getDialogPane();
+			dialogPane.getStylesheets().add(
+			   getClass().getResource("animecat.css").toExternalForm());
+			dialogPane.getStyleClass().add("animecat");
+			
 			alert.showAndWait(); //display error dialog
 			
 			return false;
@@ -143,6 +149,11 @@ public class EditController {
 			alert.setTitle("Search Failed");
 			alert.setHeaderText("Anime Searching Failed");
 			alert.setContentText("Try a different query or check your connection.");
+			
+			DialogPane dialogPane = alert.getDialogPane();
+			dialogPane.getStylesheets().add(
+			   getClass().getResource("animecat.css").toExternalForm());
+			dialogPane.getStyleClass().add("animecat");
 			
 			alert.showAndWait(); //display error dialog
 			valid = false; //set URL to invalid
