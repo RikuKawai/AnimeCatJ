@@ -27,8 +27,8 @@ import moe.thisis.animecat.model.Anime;
  * EditController.java
  * Dialog for adding a new entry
  * 
- * @author Quinlan McNellen
- * @date 2016/06/17
+ * @author	Quinlan McNellen
+ * @date	2016/06/17
  */
 public class EditController {
 

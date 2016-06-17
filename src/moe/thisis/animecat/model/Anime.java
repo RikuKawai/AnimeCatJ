@@ -2,6 +2,12 @@ package moe.thisis.animecat.model;
 
 import javafx.beans.property.*;
 
+/**
+ * Anime.java
+ * Model class for an Anime
+ * @author	Quinlan McNellen
+ * @date	2016/06/17
+ */
 public class Anime {
 	private final StringProperty animeTitle;
 	private final StringProperty animeID;
@@ -18,11 +24,11 @@ public class Anime {
 	public Anime(String animeTitle, String animeID) {
 		this.animeTitle = new SimpleStringProperty(animeTitle);
 		this.animeID = new SimpleStringProperty(animeID);
-		this.metaEpisodes = new SimpleStringProperty("24");
-		this.metaYear = new SimpleStringProperty("2013-10-04");
-		this.metaStatus = new SimpleStringProperty("Finished Airing");
-		this.metaRating = new SimpleStringProperty("8.24");
-		this.imageURL = new SimpleStringProperty("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
+		this.metaEpisodes = new SimpleStringProperty("");
+		this.metaYear = new SimpleStringProperty("");
+		this.metaStatus = new SimpleStringProperty("");
+		this.metaRating = new SimpleStringProperty("");
+		this.imageURL = new SimpleStringProperty("");
 	}
 	public String getAnimeTitle() {
 		return animeTitle.get();
