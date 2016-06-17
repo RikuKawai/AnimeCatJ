@@ -43,8 +43,6 @@ public class EditController {
 	
 	public void setAnime(Anime anime) {
 		this.anime = anime;
-		
-		searchQuery.setText(anime.getAnimeTitle());
 	}
 	public boolean isOkClicked() {
 		return okClicked;
@@ -102,9 +100,9 @@ public class EditController {
 			   "RikuKawai", "AnimeCatDevelopment".toCharArray());
 			        }
 			});
-		URL url = new URL("http://myanimelist.net/api/anime/search.xml?q=" + formatQuery(query));
+		URL url = new URL("http://myanimelist.net/api/anime/search.xml?q=" + formatQuery(query)); //format and append search query
 		DOMParser parser = new DOMParser();
-		parser.parse(new InputSource(url.openStream()));
+		parser.parse(new InputSource(url.openStream())); //send api request and parse response
 		Document doc = parser.getDocument();
 		
 		NodeList root = doc.getChildNodes();
@@ -113,9 +111,18 @@ public class EditController {
 		Node entry = getNode("entry", anime.getChildNodes());
 		
 		NodeList nodes = entry.getChildNodes();
-		String[] animeData = new String[7];
+		String[] animeData = new String[7]; //anime data is stored in a string array so it can be returned
 		animeData[0] = getNodeValue("id", nodes); //animeID
-		animeData[1] = getNodeValue("english", nodes); //animeTitle
+		
+		String englishTitle = getNodeValue("english", nodes);
+		String jpTitle = getNodeValue("title", nodes);
+		
+		//some database entries have a blank english title field
+		if (englishTitle.length() > 0) { //check if the english title is present
+			animeData[1] =  englishTitle;
+		} else {
+			animeData[1] = jpTitle; //use the title field if it isn't
+		}
 		animeData[2] = getNodeValue("episodes", nodes); //metaEpisodes
 		animeData[3] = getNodeValue("score", nodes); //metaRating
 		animeData[4] = getNodeValue("status", nodes); //metaStatus
