@@ -109,7 +109,7 @@ public class UIController {
 		FileChooser fileChooser = new FileChooser();
 		
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-				"XML files (*.xml)", ".xml");
+				"XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
 		
 		File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage()); //open file dialog
