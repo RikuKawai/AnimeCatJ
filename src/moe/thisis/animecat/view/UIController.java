@@ -1,6 +1,9 @@
 package moe.thisis.animecat.view;
 
 import java.io.File;
+import java.net.Authenticator;
+import java.net.MalformedURLException;
+import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.util.Optional;
 
@@ -68,6 +71,9 @@ public class UIController {
 	private Button controlNew;
 	@FXML
 	private Button controlAbout;
+	
+	private static String username;
+	private static String password;
 	
 	/**
 	 * Show about dialog when the about button is clicked
@@ -186,14 +192,26 @@ public class UIController {
 	}
 	/**
 	 * Initialize table with two columns
+	 * @throws MalformedURLException 
 	 */
 	@FXML
-	private void initialize() {
+	private void initialize() throws MalformedURLException {
 		animeTitleColumn.setCellValueFactory(cellData -> cellData.getValue().animeTitleProperty());
 		animeIDColumn.setCellValueFactory(cellData -> cellData.getValue().animeIDProperty());
 		
 		checkConnection(); //check Internet connection
-		showLoginDialog(); //get credentials from user
+		
+		boolean valid = false;
+		do {
+			Optional<Pair<String, String>> result = showLoginDialog();
+			result.ifPresent(usernamePassword -> {
+				username = (usernamePassword.getKey());
+				password = (usernamePassword.getValue());
+			});
+			valid = verifyCredentials(username, password);
+		} while(!valid);
+		EditController.setUsername(username);
+		EditController.setPassword(password);
 		
 		showAnimeDetails(null); //show null details
 		
@@ -223,7 +241,7 @@ public class UIController {
 		}
 	}
 	
-	public void showLoginDialog() {
+	public Optional<Pair<String, String>> showLoginDialog() {
 		//create custom dialog
 		Dialog<Pair<String, String>> dialog = new Dialog<>();
 		dialog.setTitle("Login");
@@ -273,10 +291,40 @@ public class UIController {
 		
 		Optional<Pair<String, String>> result = dialog.showAndWait();
 		
-		result.ifPresent(usernamePassword -> {
-			EditController.setUsername(usernamePassword.getKey());
-			EditController.setPassword(usernamePassword.getValue());
-		});
+		return result;
+		
+		//result.ifPresent(usernamePassword -> {
+		//	EditController.setUsername(usernamePassword.getKey());
+		//	EditController.setPassword(usernamePassword.getValue());
+		//});
+	}
+	
+	public boolean verifyCredentials(String username, String password) throws MalformedURLException {
+		Authenticator.setDefault(new Authenticator() {
+			 @Override
+			        protected PasswordAuthentication getPasswordAuthentication() {
+			         return new PasswordAuthentication(
+			   username, password.toCharArray());
+			        }
+			});
+		try {
+			URL url = new URL("https://myanimelist.net/api/verify_credentials.xml");
+			url.openStream();
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Invalid Credentials");
+			alert.setHeaderText("Username/Password Invalid");
+			alert.setContentText("Try entering them again or register an account.");
+			
+			DialogPane dialogPane = alert.getDialogPane();
+			dialogPane.getStylesheets().add(
+					getClass().getResource("animecat.css").toExternalForm());
+			dialogPane.getStyleClass().add("animecat");
+			
+			alert.showAndWait();
+			return false;	
+		}
+		return true;
 	}
 	
 	public void setMain(Main mainApp) {
