@@ -29,7 +29,7 @@ import moe.thisis.animecat.model.Anime;
  * Dialog for adding a new entry
  * 
  * @author	Quinlan McNellen
- * @date	2016/06/17
+ * @date	2016/11/05
  */
 public class EditController {
 
@@ -40,6 +40,9 @@ public class EditController {
 	private Stage dialogStage;
 	private Anime anime;
 	private boolean okClicked = false;
+	
+	private static String username;
+	private static String password;
 	
 	@FXML
 	private void initialize() {
@@ -135,10 +138,10 @@ public class EditController {
 			 @Override
 			        protected PasswordAuthentication getPasswordAuthentication() {
 			         return new PasswordAuthentication(
-			   "RikuKawai", "AnimeCatDevelopment".toCharArray());
+			   username, password.toCharArray());
 			        }
 			});
-		URL url = new URL("http://myanimelist.net/api/anime/search.xml?q=" + formatQuery(query)); //format and append search query
+		URL url = new URL("https://myanimelist.net/api/anime/search.xml?q=" + formatQuery(query)); //format and append search query
 		DOMParser parser = new DOMParser();
 		boolean valid = true; //assume URL is valid
 		try { //try to send API request and parse response
@@ -300,5 +303,23 @@ public class EditController {
 	    }
 	 
 	    return "";
+	}
+	/**
+	 * @return the username
+	 */
+	public static String getUsername() {
+		return username;
+	}
+	/**
+	 * @param username the username to set
+	 */
+	public static void setUsername(String username) {
+		EditController.username = username;
+	}
+	/**
+	 * @param password the password to set
+	 */
+	public static void setPassword(String password) {
+		EditController.password = password;
 	}
 }
