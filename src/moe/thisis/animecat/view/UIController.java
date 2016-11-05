@@ -2,21 +2,29 @@ package moe.thisis.animecat.view;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Optional;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.TableColumn;
 import javafx.stage.FileChooser;
-
+import javafx.util.Pair;
 import moe.thisis.animecat.Main;
 
 import moe.thisis.animecat.model.Anime;
@@ -25,7 +33,7 @@ import moe.thisis.animecat.model.Anime;
  * UIController.java
  * Controller class for main GUI
  * @author	Quinlan McNellen
- * @date	2016/06/17
+ * @date	2016/11/05
  */
 public class UIController {
 	@FXML
@@ -185,6 +193,7 @@ public class UIController {
 		animeIDColumn.setCellValueFactory(cellData -> cellData.getValue().animeIDProperty());
 		
 		checkConnection(); //check Internet connection
+		showLoginDialog(); //get credentials from user
 		
 		showAnimeDetails(null); //show null details
 		
@@ -212,6 +221,62 @@ public class UIController {
 			alert.showAndWait();
 			System.exit(0); //closes the application, as it cannot function properly offline
 		}
+	}
+	
+	public void showLoginDialog() {
+		//create custom dialog
+		Dialog<Pair<String, String>> dialog = new Dialog<>();
+		dialog.setTitle("Login");
+		dialog.setHeaderText("myanimelist.net credentials");
+		
+		//set button types
+		ButtonType loginButtonType = new ButtonType("Login", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+		
+		//create username and password labels and fields
+		GridPane grid = new GridPane();
+		grid.setHgap(10);
+		grid.setVgap(10);
+		grid.setPadding(new Insets(20, 150, 10, 10));
+		
+		TextField username = new TextField();
+		username.setPromptText("Username");
+		PasswordField password = new PasswordField();
+		password.setPromptText("Password");
+		
+		grid.add(new Label("Username:"), 0, 0);
+		grid.add(username, 1, 0);
+		grid.add(new Label("Password:"), 0, 1);
+		grid.add(password, 1, 1);
+		
+		//enable/disable login button if a username is/isn't entered
+		Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+		loginButton.setDisable(true);
+		
+		//validate username
+		username.textProperty().addListener((observable, oldValue, newValue) -> {
+			loginButton.setDisable(newValue.trim().isEmpty());
+		});
+		
+		dialog.getDialogPane().setContent(grid);
+		
+		//request focus on the username field
+		Platform.runLater(() -> username.requestFocus());
+		
+		//convert the result to a username-password-pair when login is clicked
+		dialog.setResultConverter(dialogButton -> {
+			if(dialogButton == loginButtonType) {
+				return new Pair<>(username.getText(), password.getText());
+			}
+			return null;
+		});
+		
+		Optional<Pair<String, String>> result = dialog.showAndWait();
+		
+		result.ifPresent(usernamePassword -> {
+			EditController.setUsername(usernamePassword.getKey());
+			EditController.setPassword(usernamePassword.getValue());
+		});
 	}
 	
 	public void setMain(Main mainApp) {
